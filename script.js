@@ -4,7 +4,9 @@ document.getElementById("year").textContent = new Date().getFullYear();
 // 스크롤 시 섹션이 부드럽게 나타나도록 처리
 const sections = document.querySelectorAll(".section");
 
-if ("IntersectionObserver" in window) {
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if ("IntersectionObserver" in window && !prefersReducedMotion) {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
