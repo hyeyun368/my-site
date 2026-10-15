@@ -11,8 +11,9 @@
   --card-3: #e4f0ff;
 }
 
+/* 저장된 선택이 없으면 시스템 설정을 따름 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #1e1b24;
     --surface: #2a2631;
     --text: #f1ecf7;
@@ -24,6 +25,20 @@
     --card-2: #25352f;
     --card-3: #28303f;
   }
+}
+
+/* 토글 버튼으로 다크 모드를 선택한 경우 */
+:root[data-theme="dark"] {
+  --bg: #1e1b24;
+  --surface: #2a2631;
+  --text: #f1ecf7;
+  --muted: #bdb4c9;
+  --accent: #cdb8ff;
+  --border: #3a3443;
+  --header-bg: linear-gradient(135deg, #3a2a35 0%, #2f2a42 50%, #243833 100%);
+  --card-1: #3a2a33;
+  --card-2: #25352f;
+  --card-3: #28303f;
 }
 
 * {
@@ -171,6 +186,29 @@ main {
   color: var(--muted);
 }
 
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--accent);
+}
+
 .site-footer {
   padding: 32px 16px;
   text-align: center;
@@ -181,7 +219,8 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .section,
-  .card {
+  .card,
+  .theme-toggle {
     transition: none;
   }
 }
